@@ -36,15 +36,26 @@ Route::get('/manager/getIncomeList', 'ManagerController@getIncomeList')->name('m
 Route::get('/test', 'ManagerController@test')->name('manager.test');
 
 
-// Route::get('/df/{id}', 'ManagerController@downloadFile')->name('manager.downloadFile');
+Route::get('/df/{id}', 'ManagerController@downloadFile')->name('manager.downloadFile');
 Route::post('/uf', 'ManagerController@uploadFile')->name('manager.uploadFile');
 
-Route::get('/df/{id}', function($id = null)
-{
-    // $path = storage_path().'/imageFolder/' . $image;
-    $fileData = App\File::find($id);
+// Route::get('/df/{id}', function($id = null)
+// {
+//     // $path = storage_path().'/imageFolder/' . $image;
+//     $user = auth()->user();
+//     $fileData = App\File::find($id);
 
-    // if (file_exists($path)) { 
-        return response()->download(Storage::disk('vault')->download($fileData->system, $fileData->original));
-    // }
-});
+//     if($user->id != $fileData->userID)
+//     {
+//         die('Not Allowed....');
+//     }
+
+//     // if (file_exists($path)) { 
+//         return response()->file(
+//         	 // Storage::disk('vault')->url($fileData->system, $fileData->original)
+//         	storage_path('app'.DIRECTORY_SEPARATOR.'vault'.DIRECTORY_SEPARATOR.$fileData->system, $fileData->original)
+
+//         );
+//     // }
+// });
+

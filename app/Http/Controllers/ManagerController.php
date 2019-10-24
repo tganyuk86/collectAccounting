@@ -11,6 +11,9 @@ use App\Data;
 use App\File;
 use App\Category;
 
+use Image;
+
+
 class ManagerController extends Controller
 {
     /**
@@ -198,16 +201,16 @@ class ManagerController extends Controller
 
     public function downloadFile($id)
     {
-        $user = auth()->user();
 
         $fileData = File::find($id);
 
+        $user = auth()->user();
         if($user->id != $fileData->userID)
         {
             die('Not Allowed....');
         }
 
-        return response(Storage::disk('vault')->download($fileData->system, $fileData->original));
+        return response()->file(storage_path('app'.DIRECTORY_SEPARATOR.'vault'.DIRECTORY_SEPARATOR.$fileData->system, $fileData->original));    
     }
 
     public function uploadFile(Request $request)
@@ -218,39 +221,32 @@ class ManagerController extends Controller
         $image = $request->file('myImage');
         $folder = "{$user->id}/unsorted";
         $name = str_random(25).'.'.$image->getClientOriginalExtension();
-        $file = $image->storeAs($folder, $name, 'vault');
+        // $file = $image->storeAs($folder, $name, [ 'disk' => 'vault' ]);
+
+        $resize_image = Image::make($image)->resize(150, 150, function($constraint){
+            $constraint->aspectRatio();
+        });//->save($folder . '/' . $image_name);
+
+        $path = "$folder/$name";
+        Storage::disk('vault')->put($path, (string) $resize_image->encode());
+
 
         $fileData = File::create([
             'original' => $image->getClientOriginalName(),
-            'system' => $folder.'/'.$name,
+            'system' => $path,
             'userID' => $user->id
         ]);
+
+        $text = (new TesseractOCR($resize_image->path))->run();
+        $rows = explode("\n", $text);
+        dd($rows);
         
         return response([
             'status' => '1',
             'id' => $fileData->id,
 
         ]);
-        // $type = $request->type;
-        // Set user name
-        // $user->name = $request->input('name');
-
-        // Check if a profile image has been uploaded
-        if ($request->has('profile_image')) {
-            // Get image file
-            // Make a image name based on user name and current timestamp
-            // $name = str_slug($request->input('name')).'_'.time();
-            // Define folder path
-            // Make a file path where image will be stored [ folder path + file name + file extension]
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
-            // Upload image
-            // $this->uploadOne($image, $folder, 'public', $name);
-            // $name = !is_null($filename) ? $filename : str_random(25);
-            // Set user profile image path in database to filePath
-            // $user->profile_image = $filePath;
-        }
-        // Persist user record to database
-        // $user->save();
+        
 
         // Return user back and show a flash message
         // return redirect()->back()->with(['status' => 'Profile updated successfully.']);
