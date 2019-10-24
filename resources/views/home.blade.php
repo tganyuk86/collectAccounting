@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.internal')
 
 @section('content')
 <div class="container">
@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <p><a href="{{ route('income') }}">Income</a></p>
+                    <p><a href="{{ route('expense') }}">Expenses</a></p>
+                    <p><a href="{{ route('graph') }}">Graphs</a></p>
+                    <p><a href="{{ route('report') }}">Reports</a></p>
                 </div>
             </div>
         </div>

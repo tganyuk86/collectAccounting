@@ -2,14 +2,40 @@
 
 @section('content')
 
-                <div id='cssmenu'>
-<ul>
-<li><a href="index.php">Home</a></li>
-<li><a href="#">About</a></li>
-<li><a href="#">Contact</a></li>
-<li><a href="Login.php">Login</a></li>
-</ul>
-</div>
+    <script type="text/javascript">
+        
+$(function() {
+  $('#slides').slidesjs({   
+    height: 250,
+    navigation: false,
+    pagination: false,
+    effect: {
+      fade: {
+        speed: 400
+      }
+    },
+    callback: {
+        start: function(number)
+        {           
+            $("#slider_content1,#slider_content2,#slider_content3").fadeOut(500);
+        },
+        complete: function(number)
+        {           
+            $("#slider_content" + number).delay(500).fadeIn(1000);
+        }       
+    },
+    play: {
+        active: false,
+        auto: true,
+        interval: 6000,
+        pauseOnHover: false
+    }
+  });
+});
+
+    </script>
+    
+
 <section id="mainheader">
 <headerlogin>
 <h1>collectaccounting</h1>
@@ -36,8 +62,8 @@
 
 <div id="slides">
 <img src="./img/slide_1.jpg" alt="Some alt text">
-<img src="./img/slide_2.jpg" alt="Some alt text">
-<img src="./img/slide_3.jpg" alt="Some alt text">
+<!-- <img src="./img/slide_2.jpg" alt="Some alt text"> -->
+<!-- <img src="./img/slide_3.jpg" alt="Some alt text"> -->
 </div>
 </section>
 
@@ -114,31 +140,6 @@ Generate Pdf reports,Graphs and exportation of directory with all it subdirector
 <br class="clear"/>
 </section><br/>
 
-<footer>
-<h2 class="hidden">Our footer</h2>
-<section id="copyright">
-<h3 class="hidden">Copyright notice</h3>
-<div class="wrapper">&copy; Copyright 2015 by GoonsApp. All Rights Reserved.</div>
-</section>
-<section class="wrapper">
-<h3 class="hidden">Footer content</h3>
-<article class="column">
-<h4>Contact Us</h4>
-support@collectaccounting.com</article>
-<article class="column midlist">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="javascript:void(0)">License Agreement</a></li>
-<li><a href="http://collectaccounting.com/Login.php">Login</a></li>
-<li><a href="javascript:void(0)">Download</a></li></ul></article>
-<article class="column rightlist">
-<h4>About Us</h4>
-collectaccounting is cloud storage system. We focus on providing platform for record keeping.
-<ul>
-<li></li>
-</ul></article></section>
-<a href="#" class="go-top">Go Top</a>
-</footer>
 
 
 @endsection
