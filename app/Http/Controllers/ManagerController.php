@@ -31,6 +31,14 @@ class ManagerController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function getReportList()
+    {
+
+        $out = Data::getReportList();
+
+        return response()->json($out);
+    }
+
     public function getIncomeList()
     {
 
@@ -133,19 +141,34 @@ class ManagerController extends Controller
             'userID' => $user->id
         ]);
 
-        // $text = (new TesseractOCR($resize_image->encode()))->run();
-        // $rows = explode("\n", $text);
-        // dd($rows);
+        try {   
+            $text = (new TesseractOCR($image->path()))->run();
+        } catch(Exception $e){
+            $text = "Something wend wrong...";
+        }
         
         return response([
             'status' => '1',
             'id' => $fileData->id,
+            'text' => $text
 
         ]);
         
 
         // Return user back and show a flash message
         // return redirect()->back()->with(['status' => 'Profile updated successfully.']);
+    }
+
+    public function generateReport(Request $request)
+    {
+        // dd($request);
+
+        if($request->exportType == 'pdf')
+        {
+            return File::printPDF();
+        }elseif ($request->exportType == 'files') {
+
+        }
     }
 
 

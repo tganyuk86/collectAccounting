@@ -2,6 +2,7 @@
 @extends('popups.uploadFile')
 @extends('popups.sortFile')
 
+
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">

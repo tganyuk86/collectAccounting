@@ -17,6 +17,11 @@ class Data extends Model
         'dated_at' => 'datetime',
     ];
 
+    public static function getAll()
+    {
+    	return Data::all();
+    }
+
 
     public static function getFoldersFor($type)
     {
@@ -90,6 +95,84 @@ class Data extends Model
 
         }
         
+        return $out;
+    }
+
+    public static function getReportList()
+    {
+
+    	$types = [
+    		'income' => Data::getAllByTypeSorted('income'),
+    		'expense' => Data::getAllByTypeSorted('expense'),
+    	];
+
+    	$months = Data::months();
+        $i = 0;
+
+	    foreach($types as $type => $data)
+	    {
+	    	$out[$i] = [
+	                    'label' => $type,
+	                    'value' => "$type",
+	                    'showChildren' => 1
+	                ];
+
+
+        	$index = 0;
+	        foreach($data as $year => $d2)
+	        {
+	            // $out['label'] = $year;
+	            // $out['value'] = $year;
+
+	            $out[$i]['children'][$index] = [
+	                    'label' => $year,
+	                    'value' => "$type/$year",
+	                    'showChildren' => 1
+	                ];
+	            // $out['children'] = $d2;
+
+	            $index2 = 0;
+	            // foreach($months as $month => $monthLabel)
+	            foreach($d2 as $month => $d3)
+	            {
+
+
+	                $out[$i]['children'][$index]['children'][$index2] = [
+	                    'label' => $months[$month],
+	                    'value' => "$type/$year/$month",
+	                    'showChildren' => false,
+	                    'children' => []
+	                ];
+
+	                // $data['children'] = $d3;
+
+	                // foreach($allCats as $cat)
+	                // foreach($d3 as $cat => $dd)
+	                // {
+	                //     $row = [
+	                //         'label' => Category::find($cat)->title,
+	                //         'value' => "$type/$year/{$months[$month]}/".Category::find($cat)->title,
+	                //         'children' => []
+	                //     ];
+	                   
+	                //     $out[$i]['children'][$index]['children'][$index2]['children'][] = $row;
+
+
+	                // }
+
+	                $index2++;
+
+	            }
+
+	            $index++;
+
+	        }
+
+	        $i++;
+	    }
+
+        // dd($out);
+
         return $out;
     }
 
@@ -186,6 +269,23 @@ class Data extends Model
     public static function getTotal($type)
     {
     	return Data::where('type', $type)->sum('value');
+    }
+
+    public static function getTotalsByMonth($type)
+    {
+    	$data = Data::where('type', $type)->get();
+
+    	$out = [];
+    	while(count($out) < 13)
+    		$out[] = 0;
+
+    	foreach($data as $d)
+    	{
+
+    		$out[$d->dated_at->month] += $d->value;
+    	}
+
+    	return $out;
     }
 
 

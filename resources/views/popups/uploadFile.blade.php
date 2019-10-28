@@ -3,7 +3,15 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" 
                       data-target="#uploadFileModal">Upload</button> 
    
-@end
+@endSection
+
+
+@section('uploadFilePopup-btn2')
+    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                      data-target="#uploadFileModal">Quick Add</button> 
+   
+@endSection
+
 
 @section('uploadFilePopup')
 
@@ -74,4 +82,4 @@
     }
 </script>
 
-@end
+@endSection

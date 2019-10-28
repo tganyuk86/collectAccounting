@@ -9,11 +9,11 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
+          ['Month', 'Income', 'Expenses'],
+          @foreach(\App\Data::months() as $num => $month)
+            ['{{$month}}',  {{$totalIncomeByMonth[$num]}},  {{$totalExpenseByMonth[$num]}}],
+          @endforeach
+          
         ]);
 
         var options = {
@@ -28,6 +28,7 @@
       }
     </script>
 @endsection
+
 @section('content')
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
 @endsection

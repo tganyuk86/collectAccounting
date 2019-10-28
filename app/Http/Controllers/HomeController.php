@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\File;
+use App\Data;
+
 class HomeController extends Controller
 {
     /**
@@ -23,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [ 'type' => '']);
     }
 
 
@@ -46,12 +49,19 @@ class HomeController extends Controller
 
     public function graph()
     {
-        return view('graphs');
+
+        return view('graphs', [
+            'totalIncomeByMonth' => Data::getTotalsByMonth('income'),
+            'totalExpenseByMonth' => Data::getTotalsByMonth('expense')
+        ]);
     }
 
 
     public function report()
     {
-        return view('home');
+
+        return view('report', [
+
+        ]);
     }
 }

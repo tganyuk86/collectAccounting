@@ -5,14 +5,13 @@
 <!-- Modal -->
   <div class="modal fade" id="sortFileModal" tabindex="-1" role="dialog" 
                  aria-labelledby="sortFileModalLabel" aria-hidden="true"> 
-   <div class="modal-dialog" role="document"> 
+   <div class="modal-dialog modal-lg" role="document"> 
     <div class="modal-content"> 
      <div class="modal-header"> 
-       <h6 class="modal-title" id="sortFileModalLabel" style="color:green;"> 
-                                                         Upload</h6> 
+       <h6 class="modal-title" id="sortFileModalLabel" style="color:green;">Upload</h6> 
                        
        <!-- The title of the modal -->
-      <button type="button" class="close" data-dismiss="modal"aria-label="Close"> 
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
        <span aria-hidden="true">×</span> 
       </button> 
      </div> 
@@ -59,6 +58,12 @@
                                 <input id="dated_at" type="date" class="form-control" name="dated_at" value="{{ now() }}">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="dated_at" class="col-md-4 col-form-label text-md-right">Text Detected:</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="detectedText" ></textarea>
+                            </div>
+                        </div>
                         <div class="form-group row mb-0 mt-5">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -99,7 +104,8 @@
 
         $('#sortFileModalImage').html('<img src="/df/'+response.id+'" >');
         $('#fileID').val(response.id);
+        $('#detectedText').html(response.text);
     }
 </script>
 
-@end
+@endSection

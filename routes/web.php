@@ -37,6 +37,9 @@ Route::get('/manager/getIncomeList', 'ManagerController@getIncomeList')->name('m
 Route::get('/manager/getExp', 'ManagerController@getExpense')->name('manager.expense.data');
 Route::get('/manager/getExpList', 'ManagerController@getExpenseList')->name('manager.expense.list');
 
+Route::post('/manager/generateReport', 'ManagerController@generateReport')->name('manager.generateReport');
+Route::get('/manager/getReportList', 'ManagerController@getReportList')->name('manager.reports.list');
+
 Route::get('/test', 'ManagerController@test')->name('manager.test');
 
 

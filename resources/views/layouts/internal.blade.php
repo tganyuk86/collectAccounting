@@ -23,13 +23,31 @@
     @yield('css-links')
     @yield('css')
 
+    <style type="text/css">
+        #cssmenu {
+            padding-bottom: 20px;
+        }
+
+        #cssmenu ul {
+            position: absolute;
+            width: 100%;
+            border-bottom: 2px solid blue;
+        }
+
+        #cssmenu li {
+            list-style: none;
+            float: left;
+            padding-left: 20px;
+        }
+    </style>
+
 
 </head> 
 <body>
     <div id="app">
         <div id='cssmenu'>
             <ul>
-                <!-- <li><a href="{{ url('/home') }}">Dashboard</a></li> -->
+                <li><a href="{{ url('/home') }}">Dashboard</a></li>
                 
 
                  <li><a href="{{ route('income') }}">Income</a></li>
