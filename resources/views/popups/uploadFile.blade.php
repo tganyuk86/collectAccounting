@@ -1,31 +1,28 @@
 
+@section('uploadFilePopup-btn')
+    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                      data-target="#uploadFileModal">Upload</button> 
+   
+@end
+
 @section('uploadFilePopup')
-<div class="card">
-    <div class="card-header">Upload File</div>
-    <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>
-                                        {{ $error }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form action="{{ route('manager.uploadFile') }}" method="POST" role="form" 
+
+<!-- Modal -->
+  <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" 
+                 aria-labelledby="uploadFileModalLabel" aria-hidden="true"> 
+   <div class="modal-dialog" role="document"> 
+    <div class="modal-content"> 
+     <div class="modal-header"> 
+       <h6 class="modal-title" id="uploadFileModalLabel" style="color:green;"> 
+                                                         Upload</h6> 
+                       
+       <!-- The title of the modal -->
+      <button type="button" class="close" data-dismiss="modal"aria-label="Close"> 
+       <span aria-hidden="true">×</span> 
+      </button> 
+     </div> 
+     <div class="modal-body">  
+        <form action="{{ route('manager.uploadFile') }}" method="POST" role="form" 
                     enctype="multipart/form-data" class="ajax-form" data-af-callback="uploadFinish">
                         @csrf
                         <input type="hidden" name="type" value="{{ $type }}">
@@ -52,18 +49,28 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </div> 
+    <div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" 
+                                             data-dismiss="modal">Close</button> 
+                     
+      <!-- The close button in the bottom of the modal -->
+     <button type="button" class="btn btn-primary">okay</button> 
+       
+      <!-- The save changes button in the bottom of the modal -->
+    </div> 
+   </div> 
+  </div> 
+ </div> 
+
 
 <script type="text/javascript">
     function uploadFinish(response)
     {
         console.log(response)
 
-        $('form').append('<img src="/df/'+response.id+'" >');
+        sortFilePopupPopulate(response);
+        // $('form').append('<img src="/df/'+response.id+'" >');
     }
 </script>
 

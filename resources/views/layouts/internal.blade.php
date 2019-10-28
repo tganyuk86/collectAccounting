@@ -31,12 +31,12 @@
             <ul>
                 <!-- <li><a href="{{ url('/home') }}">Dashboard</a></li> -->
                 
-<!-- 
+
                  <li><a href="{{ route('income') }}">Income</a></li>
                     <li><a href="{{ route('expense') }}">Expenses</a></li>
                     <li><a href="{{ route('graph') }}">Graphs</a></li>
                     <li><a href="{{ route('report') }}">Reports</a></li>
- -->
+
             </ul>
         </div>
 

@@ -14,10 +14,19 @@
                         </div>
                     @endif
 
-                    <p><a href="{{ route('income') }}">Income</a></p>
-                    <p><a href="{{ route('expense') }}">Expenses</a></p>
-                    <p><a href="{{ route('graph') }}">Graphs</a></p>
-                    <p><a href="{{ route('report') }}">Reports</a></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><a href="{{ route('income') }}">Income</a></p>
+                            <p><a href="{{ route('expense') }}">Expenses</a></p>
+                            <p><a href="{{ route('graph') }}">Graphs</a></p>
+                            <p><a href="{{ route('report') }}">Reports</a></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Total Expenses: {{ \App\Data::getTotal('expense') }}</p>
+                            <p>Total Income: {{ \App\Data::getTotal('income') }}</p>
+                            <p>Total: {{ (\App\Data::getTotal('income')) - (\App\Data::getTotal('expense')) }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

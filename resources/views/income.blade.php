@@ -1,12 +1,13 @@
 @extends('layouts.internal')
 @extends('popups.uploadFile')
+@extends('popups.sortFile')
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">Income</div>
+                <div class="card-header">{{$type == 'income' ? 'Income' : 'Expense' }}</div>
 
                 <div class="card-body">
                     <!-- <input type="search" id="example" class="form-control"> -->
@@ -41,6 +42,7 @@
     </div>
 </div>
 @yield('uploadFilePopup')
+@yield('sortFilePopup')
 @endsection
 
 @section('css-links')
@@ -51,45 +53,13 @@
 
 @section('js-links')
 <script type="text/javascript">
-    managerEndpointURL = '{{ route('manager.income.data') }}';
-    managerListEndpointURL = '{{ route('manager.income.list') }}';
+    managerEndpointURL = '{{ route('manager.'.$type.'.data') }}';
+    managerListEndpointURL = '{{ route('manager.'.$type.'.list') }}';
 </script>
 <script src="{{ asset('js/simpleTree.js') }}" ></script>
 <script src="{{ asset('js/manager.js') }}" ></script>
 <script type="text/javascript">
-      let data2 = [
-   {
-       label: 'HTML',
-       value: 'html',
-       children: [
-           {
-               label: 'HTML5',
-               value: 'html5'
-           }, {
-               label: 'XML',
-               value: 'xml'
-           }
-       ]
-   }, {
-       label: 'JavaScript',
-       value: 'javaScript',
-       children: [
-           {
-               label: 'React',
-               value: 'react',
-               children: [
-                   {
-                       label: 'React Native',
-                       value: 'reactnative'
-                   }
-               ]
-           }, {
-               label: 'Angular',
-               value: 'angular'
-           }
-       ]
-   }
-];
+
 
 var options = {
         // Optionally provide here the jQuery element that you use as the search box for filtering the tree. simpleTree then takes control over the provided box, handling user input
@@ -134,7 +104,7 @@ var options = {
 $(function(){
 
     // $('#mytree').simpleTree(options, data);
-    $.get('{{ route('manager.income.list') }}', {}, function(dd) {
+    $.get('{{ route('manager.'.$type.'.list') }}', {}, function(dd) {
 
         $('#mytree').simpleTree(options, dd).on('simpleTree:change', function(event, selectedNode){
             console.log(selectedNode);

@@ -33,11 +33,16 @@ Route::get('/report', 'HomeController@report')->name('report');
 
 Route::get('/manager/getIncome', 'ManagerController@getIncome')->name('manager.income.data');
 Route::get('/manager/getIncomeList', 'ManagerController@getIncomeList')->name('manager.income.list');
+
+Route::get('/manager/getExp', 'ManagerController@getExpense')->name('manager.expense.data');
+Route::get('/manager/getExpList', 'ManagerController@getExpenseList')->name('manager.expense.list');
+
 Route::get('/test', 'ManagerController@test')->name('manager.test');
 
 
 Route::get('/df/{id}', 'ManagerController@downloadFile')->name('manager.downloadFile');
 Route::post('/uf', 'ManagerController@uploadFile')->name('manager.uploadFile');
+Route::post('/sf', 'ManagerController@sortFile')->name('manager.sortFile');
 
 // Route::get('/df/{id}', function($id = null)
 // {

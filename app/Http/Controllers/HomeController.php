@@ -37,13 +37,16 @@ class HomeController extends Controller
 
     public function expense()
     {
-        return view('home');
+        
+        return view('income', [
+            'type' => 'expense'
+        ]);
     }
 
 
     public function graph()
     {
-        return view('home');
+        return view('graphs');
     }
 
 
