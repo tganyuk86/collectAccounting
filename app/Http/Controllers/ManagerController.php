@@ -144,6 +144,7 @@ class ManagerController extends Controller
         try {   
             $text = (new TesseractOCR($image->path()))->run();
         } catch(Exception $e){
+            dump($e);
             $text = "Something wend wrong...";
         }
         
@@ -167,7 +168,7 @@ class ManagerController extends Controller
         {
             return File::printPDF();
         }elseif ($request->exportType == 'files') {
-
+            return File::getArchive();
         }
     }
 

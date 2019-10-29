@@ -17,11 +17,6 @@ class Data extends Model
         'dated_at' => 'datetime',
     ];
 
-    public static function getAll()
-    {
-    	return Data::all();
-    }
-
 
     public static function getFoldersFor($type)
     {
@@ -255,7 +250,7 @@ class Data extends Model
 
     public static function getAllByTypeSorted($type)
     {
-    	$allData = Data::where('type', $type)->get();
+    	$allData = Data::getAll($type);
     	$out = [];
     	foreach($allData as $row)
         {
@@ -273,7 +268,7 @@ class Data extends Model
 
     public static function getTotalsByMonth($type)
     {
-    	$data = Data::where('type', $type)->get();
+    	$data = Data::getAll($type);
 
     	$out = [];
     	while(count($out) < 13)
@@ -287,6 +282,48 @@ class Data extends Model
 
     	return $out;
     }
+
+
+
+    //===========================================================
+
+    public static function getAll($type = 'income')
+    {
+        return Data::where('type', $type)->where('userID', auth()->user()->id)->get();
+    }
+
+
+    public static function sumByCategoryMonth($data)
+    {
+        // $categories = Category::all();
+        $out = [];
+
+        foreach($data as $row)
+        {
+            if(!isset($out[Data::categories()[$row->categoryID]][$row->dated_at->month]))
+                $out[Data::categories()[$row->categoryID]][$row->dated_at->month] = 0;
+
+                
+            $out[Data::categories()[$row->categoryID]][$row->dated_at->month] += $row->value;
+        }
+
+        return $out;
+    }
+    //===========================================================
+
+    public static function categories()
+    {
+        $cats = Category::all();
+
+
+        foreach($cats as $cat)
+        {
+            $out[$cat->id] = $cat->title;
+        }
+
+        return $out;
+    }
+
 
 
     public static function months()

@@ -49,10 +49,13 @@ class HomeController extends Controller
 
     public function graph()
     {
+        $data = Data::getAll('income');
+        $incomeSumData = Data::sumByCategoryMonth($data);
 
         return view('graphs', [
             'totalIncomeByMonth' => Data::getTotalsByMonth('income'),
-            'totalExpenseByMonth' => Data::getTotalsByMonth('expense')
+            'totalExpenseByMonth' => Data::getTotalsByMonth('expense'),
+            'incomeSumData' => $incomeSumData
         ]);
     }
 

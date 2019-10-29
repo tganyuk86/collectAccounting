@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use PDF;
+use Storage;
 
 class File extends Model
 {
@@ -34,6 +35,32 @@ class File extends Model
         
         $pdf = PDF::loadView('reports.main', $data);  
         return $pdf->download('main.pdf');
+    }
+
+    public static function getArchive()
+    {
+      $zip_file = 'archive.zip';
+      $zip = new \ZipArchive();
+      $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+      $path = storage_path('app/vault/'.auth()->user()->id);
+      $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+      
+// dd($files);
+      foreach ($files as $name => $file)
+      {
+          // We're skipping all subfolders
+          if (!$file->isDir()) {
+              $filePath     = $file->getRealPath();
+
+              // extracting filename with substr/strlen
+              $relativePath = 'reciepts/' . substr($filePath, strlen($path) + 1);
+
+              $zip->addFile($filePath, $relativePath);
+          }
+      }
+      $zip->close();
+      return response()->download($zip_file);
     }
 
 }

@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     <form action="{{ route('manager.generateReport') }}" method="POST" role="form" 
-                     class="ajax-form" data-af-callback="generateFinish">
+                     class="" data-af-callback="generateFinish">
                         @csrf
                         <input type="hidden" name="exportType" value="">
                         <input type="hidden" name="id" id="" value="">

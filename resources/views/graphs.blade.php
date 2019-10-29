@@ -9,9 +9,22 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Month', 'Income', 'Expenses'],
+          ['Month', @foreach(\App\Data::categories() as $catID => $catTitle)
+              '{{$catTitle}}', @endforeach ],
+
+
+
+
           @foreach(\App\Data::months() as $num => $month)
-            ['{{$month}}',  {{$totalIncomeByMonth[$num]}},  {{$totalExpenseByMonth[$num]}}],
+            ['{{$month}}',  
+              @foreach(\App\Data::categories() as $catID => $catTitle)
+                {{ isset($incomeSumData[$num][$catID]) ? $incomeSumData[$num][$catID] : 0 }},
+              @endforeach
+
+            ],
+            
+
+
           @endforeach
           
         ]);
