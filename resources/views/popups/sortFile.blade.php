@@ -1,6 +1,5 @@
 
 
-@section('sortFilePopup')
 
 <!-- Modal -->
   <div class="modal fade" id="sortFileModal" tabindex="-1" role="dialog" 
@@ -107,5 +106,3 @@
         $('#detectedText').html(response.text);
     }
 </script>
-
-@endSection

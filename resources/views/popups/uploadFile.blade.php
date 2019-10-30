@@ -1,20 +1,4 @@
 
-@section('uploadFilePopup-btn')
-    <button type="button" class="btn btn-primary" data-toggle="modal" 
-                      data-target="#uploadFileModal">Upload</button> 
-   
-@endSection
-
-
-@section('uploadFilePopup-btn2')
-    <button type="button" class="btn btn-primary" data-toggle="modal" 
-                      data-target="#uploadFileModal">Quick Add</button> 
-   
-@endSection
-
-
-@section('uploadFilePopup')
-
 <!-- Modal -->
   <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" 
                  aria-labelledby="uploadFileModalLabel" aria-hidden="true"> 
@@ -81,5 +65,3 @@
         // $('form').append('<img src="/df/'+response.id+'" >');
     }
 </script>
-
-@endSection

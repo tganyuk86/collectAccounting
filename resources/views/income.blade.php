@@ -14,6 +14,11 @@
                     <!-- <input type="search" id="example" class="form-control"> -->
                     <div id="mytree"></div>
                 </div>
+
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                      data-target="#uploadFileModal">Upload</button> 
+                </div>
             </div>
 
         </div>
