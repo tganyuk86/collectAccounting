@@ -47,8 +47,7 @@
         </div>
     </div>
 </div>
-@yield('uploadFilePopup')
-@yield('sortFilePopup')
+
 @endsection
 
 @section('css-links')
