@@ -101,7 +101,7 @@
         $('#uploadFileModal').modal('hide'); 
         $('#sortFileModal').modal('show'); 
 
-        // $('body').css('overflow', 'hidden');
+        $('body').css('overflow', 'hidden');
 
 
         // $('#sortFileModalImage').html('<img src="/df/'+response.id+'" >');
