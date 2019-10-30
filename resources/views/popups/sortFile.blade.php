@@ -101,7 +101,12 @@
         $('#uploadFileModal').modal('hide'); 
         $('#sortFileModal').modal('show'); 
 
-        $('#sortFileModalImage').html('<img src="/df/'+response.id+'" >');
+        // $('body').css('overflow', 'hidden');
+
+
+        // $('#sortFileModalImage').html('<img src="/df/'+response.id+'" >');
+        $('#sortFileModal .modal-content').css('background-image', 'url(/df/'+response.id+')');
+
         $('#fileID').val(response.id);
         $('#detectedText').html(response.text);
     }
