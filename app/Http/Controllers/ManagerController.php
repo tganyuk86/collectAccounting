@@ -166,7 +166,14 @@ class ManagerController extends Controller
 
         if($request->exportType == 'pdf')
         {
-            return File::printPDF();
+            $allData = Data::getAll($request->type);
+            $data[$request->year] = Data::sumByMonthCategory($allData);
+
+            $catTotals = Data::getTotalsByCategory($request->type);
+            $finalTotal = Data::getTotal($request->type);
+
+            return File::printPDF($request->type, $data, $catTotals, $finalTotal);
+
         }elseif ($request->exportType == 'files') {
             return File::getArchive();
         }

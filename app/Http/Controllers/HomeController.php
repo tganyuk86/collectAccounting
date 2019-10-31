@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\File;
 use App\Data;
 
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -59,6 +61,24 @@ class HomeController extends Controller
         ]);
     }
 
+
+    public function viewReport($type, $year)
+    {
+
+        $allData = Data::getAll($type);
+        $data[$year] = Data::sumByMonthCategory($allData);
+
+        $catTotals = Data::getTotalsByCategory($type);
+        $finalTotal = Data::getTotal($type);
+
+        return view('reports.main', [
+            'data' => $data,
+            'catTotals' => $catTotals,
+            'finalTotal' => $finalTotal,
+            'type' => $type,
+            'user' => Auth::user()
+        ]);
+    }
 
     public function report()
     {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use PDF;
 use Storage;
+use Auth;
 
 class File extends Model
 {
@@ -24,16 +25,18 @@ class File extends Model
         return $rows;
     }
 
-    public static function printPDF()
+    public static function printPDF($type, $data, $catTotals, $finalTotal)
     {
        // This  $data array will be passed to our PDF blade
-       $data = [
-          'title' => 'First PDF for Medium',
-          'heading' => 'Hello from 99Points.info',
-          'content' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-            ];
+
         
-        $pdf = PDF::loadView('reports.main', $data);  
+        $pdf = PDF::loadView('reports.main', [
+          'type' => $type,
+          'user' => Auth::user(),
+          'data' => $data,
+          'catTotals' => $catTotals,
+          'finalTotal' => $finalTotal
+            ]);  
         return $pdf->download('main.pdf');
     }
 

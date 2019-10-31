@@ -42,6 +42,8 @@ Route::get('/manager/getReportList', 'ManagerController@getReportList')->name('m
 
 Route::get('/test', 'ManagerController@test')->name('manager.test');
 
+Route::get('/viewreport/{type}/{year}', 'HomeController@viewReport')->name('viewReport');
+
 
 Route::get('/df/{id}', 'ManagerController@downloadFile')->name('manager.downloadFile');
 Route::post('/uf', 'ManagerController@uploadFile')->name('manager.uploadFile');

@@ -268,16 +268,33 @@ class Data extends Model
 
     public static function getTotalsByMonth($type)
     {
+        $data = Data::getAll($type);
+
+        $out = [];
+        while(count($out) < 13)
+            $out[] = 0;
+
+        foreach($data as $d)
+        {
+
+            $out[$d->dated_at->month] += $d->value;
+        }
+
+        return $out;
+    }
+
+    public static function getTotalsByCategory($type)
+    {
     	$data = Data::getAll($type);
 
     	$out = [];
-    	while(count($out) < 13)
-    		$out[] = 0;
-
+    	
     	foreach($data as $d)
     	{
-
-    		$out[$d->dated_at->month] += $d->value;
+            if(!isset($out[$d->categoryID]))
+                $out[$d->categoryID] = 0;
+            
+    		$out[$d->categoryID] += $d->value;
     	}
 
     	return $out;
@@ -293,6 +310,22 @@ class Data extends Model
     }
 
 
+    public static function sumByMonthCategory($data)
+    {
+        $out = [];
+
+        foreach($data as $row)
+        {
+            if(!isset($out[$row->dated_at->month][Data::categories()[$row->categoryID]]))
+                $out[$row->dated_at->month][Data::categories()[$row->categoryID]] = 0;
+
+
+            $out[$row->dated_at->month][Data::categories()[$row->categoryID]] += $row->value;
+        }
+
+        return $out;
+    }
+
     public static function sumByCategoryMonth($data)
     {
         // $categories = Category::all();
@@ -303,7 +336,7 @@ class Data extends Model
             if(!isset($out[Data::categories()[$row->categoryID]][$row->dated_at->month]))
                 $out[Data::categories()[$row->categoryID]][$row->dated_at->month] = 0;
 
-                
+
             $out[Data::categories()[$row->categoryID]][$row->dated_at->month] += $row->value;
         }
 
@@ -313,7 +346,7 @@ class Data extends Model
 
     public static function categories()
     {
-        $cats = Category::all();
+        $cats = Category::getAll();
 
 
         foreach($cats as $cat)
