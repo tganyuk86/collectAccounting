@@ -1,4 +1,5 @@
-@extends('layouts.internal')
+<!-- @-extends('layouts.internal') -->
+@extends('voyager.master')
 @extends('popups.uploadFile')
 @extends('popups.sortFile')
 
