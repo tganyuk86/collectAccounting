@@ -13,7 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="{{ asset('js/ajaxForm.js') }}" ></script>
-
+    @yield('js-links')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +21,26 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css-links')
+    @yield('css')
+
+    <style type="text/css">
+        #cssmenu {
+            padding-bottom: 20px;
+        }
+
+        #cssmenu ul {
+            position: absolute;
+            width: 100%;
+            border-bottom: 2px solid blue;
+        }
+
+        #cssmenu li {
+            list-style: none;
+            float: left;
+            padding-left: 20px;
+        }
+    </style>
 
 
 </head> 

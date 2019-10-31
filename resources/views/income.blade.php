@@ -2,7 +2,6 @@
 @extends('popups.uploadFile')
 @extends('popups.sortFile')
 
-
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -14,12 +13,12 @@
                     <!-- <input type="search" id="example" class="form-control"> -->
                     <div id="mytree"></div>
                 </div>
+            </div>
 
                 <div class="card-footer">
                     <button type="button" class="btn btn-primary" data-toggle="modal" 
                       data-target="#uploadFileModal">Upload</button> 
                 </div>
-            </div>
 
         </div>
         <div class="col-md-8">
@@ -47,7 +46,8 @@
         </div>
     </div>
 </div>
-
+@yield('uploadFilePopup')
+@yield('sortFilePopup')
 @endsection
 
 @section('css-links')
